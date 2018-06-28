@@ -15,15 +15,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        switchView.handleChangeSwitchState = { isOn in
-            print("dung hay sai: \(isOn)")
-        }
+//        switchView.handleChangeSwitchState = { isOn in
+//            print("dung hay sai: \(isOn)")
+//        }
     }
 
     @IBAction func action(_ sender: Any) {
         print(switchView.isOn)
     }
     
+    @IBAction func changeValue(_ sender: PRSwitch) {
+        print(sender.isOn)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

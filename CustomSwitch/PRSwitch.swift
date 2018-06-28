@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class PRSwitch: UIView {
+class PRSwitch: UIControl {
     
     @IBInspectable private var bgColorOn: UIColor = UIColor.green
     @IBInspectable private var bgColorOff: UIColor = UIColor.gray
@@ -28,11 +28,11 @@ class PRSwitch: UIView {
     
     private(set) var isOn = false {
         didSet {
-            handleChangeSwitchState!(isOn)
+//            handleChangeSwitchState!(isOn)
         }
     }
     
-    var handleChangeSwitchState: ((Bool)->())?
+//    var handleChangeSwitchState: ((Bool)->())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,19 +78,23 @@ class PRSwitch: UIView {
 //            if isOn == false && didTapPosition.x > self.bounds.width / 2 {
             // handle switch to on state
             if isOn == false && didTapPosition.x > imgCircle.bounds.width {
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: 0.3, animations: {
                     self.backgroundColor = self.bgColorOn
                     self.imgCircle.frame.origin.x = self.frame.width - self.imgCircle.bounds.width - self.paddingHorizontal
+                }) { _ in
+                    self.sendActions(for: .valueChanged)
                 }
                 isOn = !isOn
             }
-            
+
 //            if didTapPosition.x < self.bounds.width / 2 && isOn == true {
             // handle switch to off state
             else if didTapPosition.x < imgCircle.frame.origin.x && isOn == true {
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: 0.3, animations: {
                     self.backgroundColor = self.bgColorOff
                     self.imgCircle.frame.origin.x = self.paddingHorizontal
+                }) { (_) in
+                    self.sendActions(for: .valueChanged)
                 }
                 isOn = !isOn
             }
